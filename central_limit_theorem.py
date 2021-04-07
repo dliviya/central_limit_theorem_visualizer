@@ -38,9 +38,6 @@ sample_number = st.sidebar.slider(label='Choose the number of samples',
           step=10)
 
 
-#if st.sidebar.button('Submit'):
-#population = generate_population()
-#st.sidebar.write(f'(Population mean, std): ({np.round(np.mean(population),2)}, {np.round(np.std(population),2)})')
 @st.cache
 def generate_samples():
           np.random.seed(11)
@@ -48,20 +45,7 @@ def generate_samples():
           sample = population[sample_index].reshape(sample_number, sample_size)
           sample_means = np.mean(sample, axis=1)
           return sample_means
-#           fig = plt.figure()
-#           plt.hist(sample_means,density=True)
-#           plt.axis("off")
-#           plt.title("Sampling distribution of sample means")
-#           st.pyplot(fig)
 
-#           fig1 = plt.figure()
-#           plt.hist(population,density=True)
-#           plt.axis("off")
-#           plt.title("Population distribution")
-#           st.pyplot(fig1)
-
-#           st.sidebar.write(f'(Mean, std of sample means): ({np.round(np.mean(sample_means), 2)}, {np.round(np.std(sample_means), 2)})')
-#           st.sidebar.write(f'pop std / sqrt(n): {np.round(np.std(population) / np.sqrt(sample_size), 2)}')
           
 sample_means = generate_samples()
 
