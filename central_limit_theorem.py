@@ -37,7 +37,7 @@ sample_number = st.sidebar.slider(label='Choose the number of samples',
           step=10)
 
 
-if st.button('Submit'):
+if st.sidebar.button('Submit'):
           population = generate_population()
           st.sidebar.write(f'(Population mean, std): ({np.round(np.mean(population),2)}, {np.round(np.std(population),2)})')
           sample_index = np.random.randint(low=0, high=len(population), size=(sample_number * sample_size))
