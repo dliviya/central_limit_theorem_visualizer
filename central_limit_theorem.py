@@ -17,6 +17,7 @@ pop_size = st.sidebar.slider(label="Choose the Population size ('N') - Creates a
     
 @st.cache
 def generate_population():
+    np.random.seed(11)
     population = np.random.randint(low=POP_MIN, high=POP_MAX, size=pop_size)
     return population
 
@@ -42,6 +43,7 @@ sample_number = st.sidebar.slider(label='Choose the number of samples',
 #st.sidebar.write(f'(Population mean, std): ({np.round(np.mean(population),2)}, {np.round(np.std(population),2)})')
 @st.cache
 def generate_samples():
+          np.random.seed(11)
           sample_index = np.random.randint(low=0, high=len(population), size=(sample_number * sample_size))
           sample = population[sample_index].reshape(sample_number, sample_size)
           sample_means = np.mean(sample, axis=1)
