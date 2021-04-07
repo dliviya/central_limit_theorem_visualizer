@@ -15,13 +15,13 @@ pop_size = st.sidebar.slider(label="Choose the Population size ('N') - Creates a
           step=10)
 
     
-@st.cache
+#@st.cache
 def generate_population():
     population = np.random.randint(low=POP_MIN, high=POP_MAX, size=pop_size)
     return population
 
-population = generate_population()
-st.sidebar.write(f'(Population mean, std): ({np.round(np.mean(population),2)}, {np.round(np.std(population),2)})')
+#population = generate_population()
+#st.sidebar.write(f'(Population mean, std): ({np.round(np.mean(population),2)}, {np.round(np.std(population),2)})')
 
           
 sample_size = st.sidebar.slider(label='Choose the sample size (n)',
@@ -37,21 +37,23 @@ sample_number = st.sidebar.slider(label='Choose the number of samples',
           step=10)
 
 
+if st.button('Submit'):
+          population = generate_population()
+          st.sidebar.write(f'(Population mean, std): ({np.round(np.mean(population),2)}, {np.round(np.std(population),2)})')
+          sample_index = np.random.randint(low=0, high=len(population), size=(sample_number * sample_size))
+          sample = population[sample_index].reshape(sample_number, sample_size)
+          sample_means = np.mean(sample, axis=1)
+          fig = plt.figure()
+          plt.hist(sample_means,density=True)
+          plt.axis("off")
+          plt.title("Sampling distribution of sample means")
+          st.pyplot(fig)
 
-sample_index = np.random.randint(low=0, high=len(population), size=(sample_number * sample_size))
-sample = population[sample_index].reshape(sample_number, sample_size)
-sample_means = np.mean(sample, axis=1)
-fig = plt.figure()
-plt.hist(sample_means,density=True)
-plt.axis("off")
-plt.title("Sampling distribution of sample means")
-st.pyplot(fig)
+          fig1 = plt.figure()
+          plt.hist(population,density=True)
+          plt.axis("off")
+          plt.title("Population distribution")
+          st.pyplot(fig1)
 
-fig1 = plt.figure()
-plt.hist(population,density=True)
-plt.axis("off")
-plt.title("Population distribution")
-st.pyplot(fig1)
-
-st.sidebar.write(f'(Mean, std of sample means): ({np.round(np.mean(sample_means), 2)}, {np.round(np.std(sample_means), 2)})')
-st.sidebar.write(f'pop std / sqrt(n): {np.round(np.std(population) / np.sqrt(sample_size), 2)}')
+          st.sidebar.write(f'(Mean, std of sample means): ({np.round(np.mean(sample_means), 2)}, {np.round(np.std(sample_means), 2)})')
+          st.sidebar.write(f'pop std / sqrt(n): {np.round(np.std(population) / np.sqrt(sample_size), 2)}')
