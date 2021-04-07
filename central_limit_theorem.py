@@ -10,7 +10,7 @@ POP_MIN, POP_MAX = st.sidebar.slider('Select the population range (Example: rang
 
 pop_size = st.sidebar.slider(label="Choose the Population size ('N') - Creates a population of size 'N' within the population range",
           min_value=1000,
-          max_value=10000,
+          max_value=20000,
           value=5000,
           step=10)
 
